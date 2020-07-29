@@ -34,6 +34,15 @@ class ListFragment : Fragment() {
             adapter = dogsListAdapter
         }
 
+        swiperefresh.setOnRefreshListener {
+            loadingProgressBar.visibility = View.VISIBLE
+            dogRecyclerView.visibility = View.GONE
+            myListViewModel.refresh()
+            swiperefresh.isRefreshing = false //stops refresh icon at the top
+
+            //all components view GONE on observeViewModel() so we don't need to handle it here
+        }
+
         observeViewModel()
     }
 
